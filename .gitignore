@@ -2,7 +2,3 @@ lib/
 bin/
 include/
 .vscode/
-
-build.bat
-run.bat
-valgrind.bat
