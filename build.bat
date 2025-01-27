@@ -1,6 +1,6 @@
 set CFLAGS=-lgdi32 -lwinmm -lgmp
 set UCPATH=lib\unholyc\src
-set SRCFILES=..\src\main.c 
+set SRCFILES=..\src\main.c ..\src\hex.c
 
 @REM mkdir include
 xcopy /b /v /y %UCPATH%\unholy.c %INCLUDE%
