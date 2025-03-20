@@ -7,6 +7,7 @@
 #include <stdio.h>
 
 #define hex_print(...) printf("hex >> %s", __VA_ARGS__)
+#define hex_print_stderr(...) fprintf(stderr, "hex >> %s", __VA_ARGS__)
 
 typedef struct Slice {
     void* rawptr;

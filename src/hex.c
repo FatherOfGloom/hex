@@ -12,12 +12,12 @@ i32 is_valid_input(const Slice* input_cstr) {
     char c = *(char*)input_cstr->rawptr;
 
     if (c == '0') {
-        hex_print("A valid number cannot start with a trailing zero\n");
+        hex_print_stderr("A valid number cannot start with a trailing zero\n");
         return 0;
     }
 
     if (c != '-' && !isdigit(c)) {
-        printf("A valid number cannot start with a '%s'\n", (char[]) { c, '\0' });
+        hex_print_stderr("A valid number cannot start with a '%s'\n", (char[]) { c, '\0' });
         return 0;
     }
 
@@ -48,5 +48,5 @@ defer:
 }
 
 void print_usage(void) {
-    hex_print("Usage: hex [numeric-value]\n");
+    hex_print_stderr("Usage: hex [numeric-value]\n");
 }

@@ -14,12 +14,12 @@ i32 main(i32 argc, char* argv[]) {
     // note: -1 since '\0' counts, and if we call slice_from_cstr("") 
     // we'll get a slice of a cstring that contains a single null terminator
     if (input.size_bytes - 1 == 0) {
-        hex_print("Input cannot be empty\n");
+        hex_print_stderr("Input cannot be empty\n");
         return_defer(-1);
     }
     
     if (!is_valid_input(&input)) {
-        hex_print("This input is not a valid number\n");
+        hex_print_stderr("This input is not a valid number\n");
         return_defer(-1);
     }
 
