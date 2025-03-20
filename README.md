@@ -7,12 +7,16 @@ Small console utility for converting numbers to hexadecimal values.
 
 ## Usage
 
-```bash
   hex [number]
+
+#### Example:
+```bash
+  hex 1487
 ```
 
 ## Quick start
 
+#### NOTE: If using windows in order to use gcc you need to install and setup mingw-w64.
 Build from source with a script.
 
 ```bash
