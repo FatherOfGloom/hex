@@ -1,15 +1,25 @@
 set CFLAGS=-lgdi32 -lwinmm -lgmp
-set UCPATH=lib\unholyc\src
-set SRCFILES=..\src\main.c ..\src\hex.c
+set SRC=main.c hex.c vec.c str.c
 
-@REM mkdir include
-xcopy /b /v /y %UCPATH%\unholy.c %INCLUDE%
-xcopy /b /v /y %UCPATH%\unholy.h %INCLUDE%
-if %errorlevel% neq 0 exit /b %errorlevel%
+setlocal enabledelayedexpansion
 
-mkdir bin
+if not exist bin mkdir bin
+
+set SRC_FILES=
+
+for %%i in (%SRC%) do (
+    set SRC_FILES=!SRC_FILES! ..\src\%%i
+)
+
+set SRC_FILES=%SRC_FILES:~1%
+
 pushd bin
-gcc -o hex.exe -I%INCLUDE% %SRCFILES% %INCLUDE%\unholy.c %CFLAGS%
-if %errorlevel% neq 0 exit /b %errorlevel%
+
+gcc -o hex.exe %SRC_FILES% %CFLAGS%
+
+if %ERRORLEVEL% neq 0 exit /b %ERRORLEVEL%
+
 echo build success
 popd
+
+endlocal

@@ -1,41 +1,43 @@
 #include "hex.h"
 
-bool check_integer_input(Str* s) {
-    usize len = str_len(*s);
+Slice slice_from_cstr(const char* const cstr) {
+    return (Slice) { .rawptr = (void*)cstr, .size_bytes = strlen(cstr) + 1 };
+}
 
-    if (len <= 0) {
-        return false;
+i32 is_valid_input(const Slice* input_cstr) {
+    if (input_cstr->size_bytes - 1 <= 0) {
+        return 0;
     }
 
-    char first_c = str_at(s, 0);
+    char c = *(char*)input_cstr->rawptr;
 
-    if (first_c == '0') {
+    if (c == '0') {
         hex_print("A valid number cannot start with a trailing zero\n");
-        return false;
+        return 0;
     }
 
-    if (first_c != '-' && !isdigit(first_c)) {
-        printf("A valid number cannot start with a '%s'\n", (char[]) { first_c, '\0' });
-        return false;
+    if (c != '-' && !isdigit(c)) {
+        printf("A valid number cannot start with a '%s'\n", (char[]) { c, '\0' });
+        return 0;
     }
 
-    for (i32 i = 1; i < len; ++i) {
-        char c = str_at(s, i);
+    for (i32 i = 1; i < input_cstr->size_bytes - 1; ++i) {
+        char c = *((u8*)input_cstr->rawptr + i);
 
         if (!isdigit(c)) {
-            return false;
+            return 0;
         }
     }
 
-    return true; 
+    return 1; 
 }
 
-Str get_hex(Str* const s) {
+Str get_hex(const Slice* cstr_slice) {
     Str result = str_from("0x");
     mpz_t mpz;
 
-    mpz_init_set_str(mpz, str_to_cstr(s), 10);
-    cstr_t cstr = mpz_get_str(NULL, 16, mpz);
+    mpz_init_set_str(mpz, (char*)cstr_slice->rawptr, 10);
+    char* cstr = mpz_get_str(NULL, 16, mpz);
 
     discard str_append(&result, cstr);
 

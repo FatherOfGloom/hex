@@ -1,16 +1,21 @@
 #ifndef HEX_H_
 #define HEX_H_
 
-#include <unholy.h>
-#include <ctype.h>
 #include <gmp.h>
-
-typedef char* cstr_t;
+#include "str.h"
+#include <ctype.h>
+#include <stdio.h>
 
 #define hex_print(...) printf("hex >> %s", __VA_ARGS__)
 
-bool check_integer_input(Str* s);
-Str get_hex(Str* const s);
+typedef struct Slice {
+    void* rawptr;
+    usize size_bytes;
+} Slice;
+
+i32 is_valid_input(const Slice* s);
+Str get_hex(const Slice* s);
 void print_usage(void);
+Slice slice_from_cstr(const char* const cstr);
     
 #endif // HEX_H_
